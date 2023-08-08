@@ -13,8 +13,9 @@
 					<div class="card-header">{{ article.title }}</div>
 					<div class="card-body">
                     <img class="img-fluid" src="{{ article.image }}" alt="">
+					<p>Categorie : {{ article.category.title }}</p>
                     {# * le filtre |raw permet d'interpreter les balises HTML #}
-						{{ article.content|raw }}
+						{{ article.content|slice(0, 100) }}
                         <p class="text-end">Ecrit le {{ article.createdAt|date('d/m/Y à H:i:s') }}</p>
 						<div class="text-center">
 							<a href="{{ path('block_show', {id: article.id}) }}" class="btn btn-primary">voir plus</a>

@@ -14,6 +14,27 @@
 				<p class="card-text">{{ article.createdAt|date('d/m/Y H:i:s') }}</p>
 			</div>
 		</div>
+		<hr>
+		<h2 class="text-center my-2">Commentaires</h2>
+		<table class="table table-light table-sm">
+			<thead>
+				<tr>
+					<th class="col-md-3">Utilisateur/Date</th>
+					<th class="col-md-9">Commentaires</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for comment in article.comments %}
+					<tr>
+						<td>{{ comment.author }} <br> <small>{{ comment.createdAt|date('d/m/Y à H:i:s') }}</small></td>
+						<td>{{ comment.content }}</td>
+					</tr>
+				{% endfor %}
+			
+			</tbody>
+		</table>
+
+
 	</div>
 
 {% endblock %}

@@ -35,48 +35,9 @@ class BlogController extends AbstractController
         // * l'indice étant le nom de la variable dans le fichier twig et la valeur sa valeur réel
     }
 
-    #[Route('/blog/modifier/{id}', name:"blog_modifier")]
-    #[Route('/blog/ajout', name:'blog_ajout')]
-    public function form(Request $globals, EntityManagerInterface $manager, Article $article = null): Response
-    {
-        if($article == null)
-        {
-            $article = new Article;
-        }
 
-        $form = $this->createForm(ArticleType::class, $article);
 
-        $form->handleRequest($globals);
-        // * handleRequest() permet de récuperer toutes les données de mes inputs
-
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $article->setCreatedAt(new \DateTimeImmutable);
-            // dd($article);
-            // * persist() va permettre de préparer ma requete sql a envoyer par rapport à l'objet donné en argument
-            $manager->persist($article);
-            // * flush() va permettre d'executer tous les persist précédent
-            $manager->flush();
-            // * redirectToRoute() permet de rediriger vers une autre page de notre site à l'aide du nom de la route (name)
-            return $this->redirectToRoute('blog_gestion');
-
-        }
-
-        return $this->render('blog/form.html.twig', [
-            'form' => $form,
-            'editMode' => $article->getId() !== null
-        ]);
-    }
-
-    #[Route('/blog/gestion', name: 'blog_gestion')]
-    public function gestion(ArticleRepository $repo): Response
-    {
-        $articles = $repo->findAll();
-        return $this->render('blog/gestion.html.twig', [
-            'articles' => $articles,
-        ]);
-        
-    }
+    
 
     #[Route('/blog/show/{id}', name:"block_show")]
     public function show($id, ArticleRepository $repo)
@@ -103,11 +64,5 @@ class BlogController extends AbstractController
      * 
      */ 
 
-     #[Route('/blog/supprimer/{id}', name:'blog_supprimer')]
-     public function supprimer(Article $article, EntityManagerInterface $manager)
-     {
-        $manager->remove($article);
-        $manager->flush();
-        return $this->redirectToRoute('blog_gestion');
-     }
+  
 }
