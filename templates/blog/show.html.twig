@@ -7,7 +7,7 @@
 
 	<div class="container mt-5">
 		<div class="card text-white bg-dark mb-3">
-			<div class="card-header text-center"><img class="text-center" src="{{ article.image }}" alt=""></div>
+			<div class="card-header text-center"><img class="text-center" src="{{ asset("img/upload/" ~ article.image) }}" alt=""></div>
 			<div class="card-body">
 				<h4 class="card-title">{{ article.title }}</h4>
 				<p class="card-text">{{ article.content|raw }}</p>
@@ -15,6 +15,22 @@
 			</div>
 		</div>
 		<hr>
+
+		{% if app.user %}
+		<div class="container my-4 border border-primary p-4">
+		<h2 class="text-center my-2">Ajoutez votre commentaire</h2>
+		{{ form_start(comment) }}
+			{{ form_row(comment.content, {
+				label: 'votre commentaire'
+			}) }}
+			<button class="btn btn-primary my-2">Envoyer</button>
+		{{form_end(comment)}}
+		</div>
+
+		{% else %}		
+		<p class="text-center my-2">Connectez-vous <a href="{{ path('app_login') }}">ici</a> pour ajouter un commentaire</p>
+		{% endif %}
+		
 		<h2 class="text-center my-2">Commentaires</h2>
 		<table class="table table-light table-sm">
 			<thead>
@@ -26,7 +42,7 @@
 			<tbody>
 				{% for comment in article.comments %}
 					<tr>
-						<td>{{ comment.author }} <br> <small>{{ comment.createdAt|date('d/m/Y à H:i:s') }}</small></td>
+						<td>{{ comment.user.firstname }} <br> <small>{{ comment.createdAt|date('d/m/Y à H:i:s') }}</small></td>
 						<td>{{ comment.content }}</td>
 					</tr>
 				{% endfor %}

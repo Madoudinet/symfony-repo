@@ -31,7 +31,6 @@ class Article
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
     
-    #[Assert\NotBlank(message: 'Ce champs ne peut pas être vide')]
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 

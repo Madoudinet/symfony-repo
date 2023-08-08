@@ -12,13 +12,13 @@
 				<div class="card text-white bg-dark col-md-3 m-3 p-2">
 					<div class="card-header">{{ article.title }}</div>
 					<div class="card-body">
-                    <img class="img-fluid" src="{{ article.image }}" alt="">
+                    <img class="img-fluid" src="{{ asset("img/upload/" ~ article.image) }}" alt="">
 					<p>Categorie : {{ article.category.title }}</p>
                     {# * le filtre |raw permet d'interpreter les balises HTML #}
 						{{ article.content|slice(0, 100) }}
                         <p class="text-end">Ecrit le {{ article.createdAt|date('d/m/Y à H:i:s') }}</p>
 						<div class="text-center">
-							<a href="{{ path('block_show', {id: article.id}) }}" class="btn btn-primary">voir plus</a>
+							<a href="{{ path('blog_show', {id: article.id}) }}" class="btn btn-primary">voir plus</a>
 						</div>
 					</div>
 				</div>

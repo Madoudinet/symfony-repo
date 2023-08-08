@@ -8,33 +8,36 @@
 <thead>
     <tr>
         <th>#</th>
-        <th>titre</th>
-        <th>image</th>
-        <th>contenu</th>
-        <th>date</th>
-        <th>option</th>
+        <th>Categorie</th>
+        <th>Titre</th>
+        <th>Image</th>
+        <th>Contenu</th>
+        <th>Date</th>
+        <th>Option</th>
     </tr>
 </thead>
 <tfoot>
     <tr>
         <th>#</th>
-        <th>titre</th>
-        <th>image</th>
-        <th>contenu</th>
-        <th>date</th>
-        <th>option</th>
+        <th>Categorie</th>
+        <th>Titre</th>
+        <th>Image</th>
+        <th>Contenu</th>
+        <th>Date</th>
+        <th>Option</th>
     </tr>
 </tfoot>
 <tbody>
     {% for article in articles %}      
     <tr>
         <td>{{ article.id }}</td>
+        <td>{{ article.category.title }}</td>
         <td>{{ article.title }}</td>
-        <td><img src="{{ article.image }}" alt="" width="50"></td>
+        <td><img src="{{ asset("img/upload/" ~ article.image) }}" alt="" width="50"></td>
         <td>{{ article.content|slice(0, 50) }}</td>
         <td>{{ article.createdAt|date('d/m/Y à H:i:s') }}</td>
         <td>
-            <a href="{{ path('block_show', {id: article.id}) }}" class="text-info">voir</a>
+            <a href="{{ path('blog_show', {id: article.id}) }}" class="text-info">voir</a>
             <a href="{{ path('blog_modifier', {id: article.id}) }}" class="text-warning">modifier</a>
             <a href="{{ path('blog_supprimer', {id: article.id}) }}" class="text-danger">supprimer</a>
         </td>
